@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<!-- derived from url=(0052)http://learningwebgl.com/lessons/lesson04/index.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>anthony3</title>
+<style>
+ input.number{width:28px}
+ input[type="range"]{width:110px}
+</style>
+</head>
+<body onload="webGLStart()">
+	<canvas id="canvas" width="250" height="250"></canvas><br>
+	<input id="input" size="47" onkeyup="onScriptKeyUp()" hint="forth or javascript"><br>
+	<button onclick="onEvalClick()">eval javaScript or forth</button>
+	<button id="bAutoRun" onclick="autoRun()">autoRun</button>
+<br>腰﹍
+	轉幅	<input id="amplitude0" value="30" class="number" class="number">
+	速		<input id="speed0" value="9" class="number">
+	偏		<input id="rangeVal0" value="0" class="number" onkeyup="changeVal0()">
+			<input id="range0" value="0" type="range" min="-90" max="90" onchange="changeRange0()">
+<br>右裸
+	轉幅	<input id="amplitude1" value="10" class="number">
+	速		<input id="speed1" value="0" class="number">
+	偏 		<input id="rangeVal1" value="-5" class="number" onkeyup="changeVal1()">
+			<input id="range1" value="-5" type="range" min="-90" max="90" onchange="changeRange1()">
+<br>右腳
+	轉幅	<input id="amplitude2" value="20" class="number">
+	速		<input id="speed2" value="9" class="number">
+	偏		<input id="rangeVal2" value="20" class="number" onkeyup="changeVal2()">
+			<input id="range2" value="20" type="range" min="-90" max="90" onchange="changeRange2()">
+<br>右腿
+	轉幅	<input id="amplitude3" value="20" class="number">
+	速		<input id="speed3" value="9" class="number">
+	偏		<input id="rangeVal3" value="-20" class="number" onkeyup="changeVal3()">
+			<input id="range3" value="-20" type="range" min="-90" max="90" onchange="changeRange3()">
+<br>右跨
+	轉幅	<input id="amplitude4" value="10" class="number">
+	速		<input id="speed4" value="0" class="number">
+	偏		<input id="rangeVal4" value="5" class="number" onkeyup="changeVal4()">
+			<input id="range4" value="5" type="range" min="-90" max="90" onchange="changeRange4()">
+<br>右肩
+	轉幅	<input id="amplitude5" value="15" class="number">
+	速		<input id="speed5" value="9" class="number">
+	偏		<input id="rangeVal5" value="-40" class="number" onkeyup="changeVal5()">
+			<input id="range5" value="-40" type="range" min="-90" max="90" onchange="changeRange5()">
+<br>右膀
+	轉幅	<input id="amplitude6" value="15" class="number">
+	速		<input id="speed6" value="9" class="number">
+	偏		<input id="rangeVal6" value="20" class="number" onkeyup="changeVal6()">
+			<input id="range6" value="20" type="range" min="-90" max="90" onchange="changeRange6()">
+<br>右臂
+	
+	轉幅	<input id="amplitude7" value="30" class="number">
+	速		<input id="speed7" value="9" class="number">
+	偏		<input id="rangeVal7" value="-30" class="number" onkeyup="changeVal7()">
+			<input id="range7" value="-30" type="range" min="-90" max="90" onchange="changeRange7()">
+<br>左裸
+	轉幅	<input id="amplitude8" value="10" class="number">
+	速		<input id="speed8" value="0" class="number">
+	偏		<input id="rangeVal8" value="-5" class="number" onkeyup="changeVal8()">
+			<input id="range8" value="-10" type="range" min="-90" max="90" onchange="changeRange8()">
+<br>左腳
+	轉幅	<input id="amplitude9" value="20" class="number">
+	速		<input id="speed9" value="9" class="number">
+	偏		<input id="rangeVal9" value="-20" class="number" onkeyup="changeVal9()">
+			<input id="range9" value="-20" type="range" min="-90" max="90" onchange="changeRange9()">
+<br>左腿
+	轉幅	<input id="amplitude10" value="20" class="number">
+	速		<input id="speed10" value="9" class="number">
+	偏		<input id="rangeVal10" value="20" class="number" onkeyup="changeVal10()">
+			<input id="range10" value="20" type="range" min="-90" max="90" onchange="changeRange10()">
+<br>左跨
+	轉幅	<input id="amplitude11" value="10" class="number">
+	速		<input id="speed11" value="0" class="number">
+	偏		<input id="rangeVal11" value="5" class="number" onkeyup="changeVal11()">
+			<input id="range11" value="5"type="range" min="-90" max="90" onchange="changeRange11()">
+<br>左肩
+	轉幅	<input id="amplitude12" value="15" class="number">
+	速		<input id="speed12" value="9" class="number">
+	偏		<input id="rangeVal12" value="40" class="number" onkeyup="changeVal12()">
+			<input id="range12" value="40" type="range" min="-90" max="90" onchange="changeRange12()">
+<br>左膀
+	轉幅	<input id="amplitude13" value="15" class="number">
+	速		<input id="speed13" value="9" class="number">
+	偏		<input id="rangeVal13" value="20" class="number" onkeyup="changeVal13()">
+			<input id="range13" value="20" type="range" min="-90" max="90" onchange="changeRange13()">
+<br>左臂
+	轉幅	<input id="amplitude14" value="30" class="number">
+	速		<input id="speed14" value="9" class="number">
+	偏		<input id="rangeVal14" value="30" class="number" onkeyup="changeVal14()">
+			<input id="range14" value="30" type="range" min="-90" max="90" onchange="changeRange14()">
+<script src="glMatrix-0.9.5.js"></script>
+<script src="webgl-utils.js"></script>
+<script src="cube.js"></script>
+<script src="superAnthony.js"></script>
+<script src="oneWordVM.js">// having the one word vm f </script>
+<script src="index.js"></script>
+</html>
