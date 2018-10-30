@@ -1,7 +1,7 @@
 function drawAnthony(time){
 	drawBackground();
 	setOrigin([0, 2, -30]);
-	rotate([0,1,0], 10*Math.cos(time*9)); // 全景微轉
+	rotate([0,1,0], 90*Math.cos(time*.5)); // 全景微轉
 	
 	mvMatrixPush(); // 上半身
 		
