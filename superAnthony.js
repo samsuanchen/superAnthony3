@@ -122,8 +122,10 @@ var delayTime = 0;
 function drawScene() {
 	var time = new Date().getTime() /1000;
 	delayTime = time - lastTime;
-	if(bAuto.innerHTML != "自動")
-		lastTime = time;
+	if(bAuto.innerHTML == "自動"){
+		return;
+	}
+	lastTime = time; 
 	time -= delayTime;
 	drawAnthony(time);
 }
@@ -147,12 +149,24 @@ function incVal(){
 	if( !m ) return;
 	var valElement = document.getElementById('iVal' + m[0]);
 	valElement.value = parseInt(valElement.value) + parseInt(iDelta.value);
-	drawScene();
 }
 function decVal(){
 	var incElement = event.path[0], m = incElement.id.match(/((Bgn|End)\d+)$/);
 	if( !m ) return;
 	var valElement = document.getElementById('iVal' + m[0]);
 	valElement.value = parseInt(valElement.value) - parseInt(iDelta.value);
-	drawScene();
+}
+function toChangeVal(){
+	if(bAuto.innerHTML != "自動") return;
+	var curElement = event.path[0], m = curElement.id.match(/(Bgn|End)\d+$/);
+	if( !m ) return;
+	drawAnthony(m[1]=="Bgn"?0:180);
+}
+function toBgn(){
+	bAuto.innerHTML = "自動";
+	drawAnthony(0/parseInt(iSpeed.value));
+}
+function toEnd(){
+	bAuto.innerHTML = "自動";
+	drawAnthony(180/parseInt(iSpeed.value));
 }

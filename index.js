@@ -122,6 +122,6 @@ function webGLStart() {
 	initGL();
 	initShaders();
 	initBuffers();
-	drawScene();
+	drawAnthony(0);
 	animate();
 }
