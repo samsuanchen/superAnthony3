@@ -11,7 +11,10 @@
 	<canvas id="canvas" width="250" height="250"></canvas><br>
 	<input id="input" size="47" onkeyup="onScriptKeyUp()" hint="forth or javascript"><br>
 	<button onclick="onEvalClick()">eval javaScript or forth</button>
-	<button id="bBgn"  onclick="toBgn ()">起</button>
+	<button onclick="save()">寫</button>
+	<button onclick="load()">讀</button>
+	<input id="iFile" size="10" value="json">
+<br><button id="bBgn"  onclick="toBgn ()">起</button>
 	<button id="bEnd"  onclick="toEnd ()">迄</button>
 	速 <input id="iSpeed" value="1" class="number">
 	<button id="bAuto" onclick="toAuto()">自動</button>

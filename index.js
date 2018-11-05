@@ -125,3 +125,14 @@ function webGLStart() {
 	drawAnthony(0);
 	animate();
 }
+function save(){
+	var inputs = document.getElementsByClassName("number");
+	var json = {}; inputs.forEach(function(e){json[e.id] = e.value});
+	localStorage.setItem("json", JSON.stringify(json));
+}
+function load(){
+	var json = JSON.parse(localStorage.getItem("json"));
+	Object.keys(json).forEach(function(id){
+		eval(id+'.value='+json[id]);
+	});
+}
