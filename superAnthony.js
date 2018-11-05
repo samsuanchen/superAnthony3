@@ -69,7 +69,7 @@ function drawAnthony(time){
 	rotate([0,0,1], vBgn+(vEnd-vBgn)*(1-Math.cos(time*vSpeed))/2); /*4*/
 	cube.draw(.5); // 右跨
 	
-//	translate([0,-1.2,0]);
+	translate([0,-.8,0]);
 	var vBgn = parseInt(iValBgn3.value), vEnd=parseInt(iValEnd3.value);
 	rotate([1,0,0], vBgn+(vEnd-vBgn)*(1-Math.cos(time*vSpeed))/2); /*03*/
 	cube.draw(.5); // 右腿
@@ -97,7 +97,7 @@ function drawAnthony(time){
 	rotate([0,0,1], vBgn+(vEnd-vBgn)*(1-Math.cos(time*vSpeed))/2); /*11*/
 	cube.draw(.5); // 左跨
 	
-//	translate([0,-1.2,0]);
+	translate([0,-.8,0]);
 	var vBgn = parseInt(iValBgn10.value), vEnd=parseInt(iValEnd10.value);
 	rotate([1,0,0], vBgn+(vEnd-vBgn)*(1-Math.cos(time*vSpeed))/2); /*10*/
 	cube.draw(.5); // 左腿
@@ -141,14 +141,6 @@ function onEvalClick(){
 function toAuto(){
 	if(bAuto.innerHTML == "自動") bAuto.innerHTML = "停止";
 	else						  bAuto.innerHTML = "自動";
-}
-function changeVal(){
-	var rangeVal = event.path[0], m = rangeVal.id.match(/(\d+)$/);
-	if( m ) document.getElementById('range' + m[0]).value = rangeVal.value;
-}
-function changeRange(){
-	var range = event.path[0], m = range.id.match(/(\d+)$/);
-	if( m ) document.getElementById('rangeVal' + m[0]).value = range.value;
 }
 function incVal(){
 	var incElement = event.path[0], m = incElement.id.match(/((Bgn|End)\d+)$/);
