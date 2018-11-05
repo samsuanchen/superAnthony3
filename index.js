@@ -118,19 +118,6 @@ function mvMatrixPush(){
 function mvMatrixPop(){
 	mat4.set(stack.pop(), mvMatrix);
 }
-var lastTime = 0;
-var delayTime = 0;
-function drawScene() {
-	var time = new Date().getTime() /1000;
-	delayTime = time - lastTime;
-	if(bAutoRun.innerHTML != "autoRun") lastTime = time;
-	time -= delayTime;
-	drawAnthony(time);
-}
-function animate(){
-	requestAnimFrame(animate); // the function requestAnimFrame is in webgl-utils.js
-	drawScene()
-}
 function webGLStart() {
 	initGL();
 	initShaders();

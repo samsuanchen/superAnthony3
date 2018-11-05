@@ -11,83 +11,122 @@
 	<canvas id="canvas" width="250" height="250"></canvas><br>
 	<input id="input" size="47" onkeyup="onScriptKeyUp()" hint="forth or javascript"><br>
 	<button onclick="onEvalClick()">eval javaScript or forth</button>
-	<button id="bAutoRun" onclick="autoRun()">autoRun</button>
-<br>腰﹍
-	轉幅	<input id="amplitude0" value="30" class="number" class="number">
-	速		<input id="speed0" value="9" class="number">
-	偏		<input id="rangeVal0" value="0" class="number" onkeyup="changeVal0()">
-			<input id="range0" value="0" type="range" min="-90" max="90" onchange="changeRange0()">
-<br>右裸
-	轉幅	<input id="amplitude1" value="10" class="number">
-	速		<input id="speed1" value="0" class="number">
-	偏 		<input id="rangeVal1" value="-5" class="number" onkeyup="changeVal1()">
-			<input id="range1" value="-5" type="range" min="-90" max="90" onchange="changeRange1()">
-<br>右腳
-	轉幅	<input id="amplitude2" value="20" class="number">
-	速		<input id="speed2" value="9" class="number">
-	偏		<input id="rangeVal2" value="20" class="number" onkeyup="changeVal2()">
-			<input id="range2" value="20" type="range" min="-90" max="90" onchange="changeRange2()">
-<br>右腿
-	轉幅	<input id="amplitude3" value="20" class="number">
-	速		<input id="speed3" value="9" class="number">
-	偏		<input id="rangeVal3" value="-20" class="number" onkeyup="changeVal3()">
-			<input id="range3" value="-20" type="range" min="-90" max="90" onchange="changeRange3()">
-<br>右跨
-	轉幅	<input id="amplitude4" value="10" class="number">
-	速		<input id="speed4" value="0" class="number">
-	偏		<input id="rangeVal4" value="5" class="number" onkeyup="changeVal4()">
-			<input id="range4" value="5" type="range" min="-90" max="90" onchange="changeRange4()">
-<br>右肩
-	轉幅	<input id="amplitude5" value="15" class="number">
-	速		<input id="speed5" value="9" class="number">
-	偏		<input id="rangeVal5" value="-40" class="number" onkeyup="changeVal5()">
-			<input id="range5" value="-40" type="range" min="-90" max="90" onchange="changeRange5()">
-<br>右膀
-	轉幅	<input id="amplitude6" value="15" class="number">
-	速		<input id="speed6" value="9" class="number">
-	偏		<input id="rangeVal6" value="20" class="number" onkeyup="changeVal6()">
-			<input id="range6" value="20" type="range" min="-90" max="90" onchange="changeRange6()">
-<br>右臂
-	
-	轉幅	<input id="amplitude7" value="30" class="number">
-	速		<input id="speed7" value="9" class="number">
-	偏		<input id="rangeVal7" value="-30" class="number" onkeyup="changeVal7()">
-			<input id="range7" value="-30" type="range" min="-90" max="90" onchange="changeRange7()">
-<br>左裸
-	轉幅	<input id="amplitude8" value="10" class="number">
-	速		<input id="speed8" value="0" class="number">
-	偏		<input id="rangeVal8" value="-5" class="number" onkeyup="changeVal8()">
-			<input id="range8" value="-10" type="range" min="-90" max="90" onchange="changeRange8()">
-<br>左腳
-	轉幅	<input id="amplitude9" value="20" class="number">
-	速		<input id="speed9" value="9" class="number">
-	偏		<input id="rangeVal9" value="-20" class="number" onkeyup="changeVal9()">
-			<input id="range9" value="-20" type="range" min="-90" max="90" onchange="changeRange9()">
-<br>左腿
-	轉幅	<input id="amplitude10" value="20" class="number">
-	速		<input id="speed10" value="9" class="number">
-	偏		<input id="rangeVal10" value="20" class="number" onkeyup="changeVal10()">
-			<input id="range10" value="20" type="range" min="-90" max="90" onchange="changeRange10()">
-<br>左跨
-	轉幅	<input id="amplitude11" value="10" class="number">
-	速		<input id="speed11" value="0" class="number">
-	偏		<input id="rangeVal11" value="5" class="number" onkeyup="changeVal11()">
-			<input id="range11" value="5"type="range" min="-90" max="90" onchange="changeRange11()">
-<br>左肩
-	轉幅	<input id="amplitude12" value="15" class="number">
-	速		<input id="speed12" value="9" class="number">
-	偏		<input id="rangeVal12" value="40" class="number" onkeyup="changeVal12()">
-			<input id="range12" value="40" type="range" min="-90" max="90" onchange="changeRange12()">
-<br>左膀
-	轉幅	<input id="amplitude13" value="15" class="number">
-	速		<input id="speed13" value="9" class="number">
-	偏		<input id="rangeVal13" value="20" class="number" onkeyup="changeVal13()">
-			<input id="range13" value="20" type="range" min="-90" max="90" onchange="changeRange13()">
-<br>左臂
-	轉幅	<input id="amplitude14" value="30" class="number">
-	速		<input id="speed14" value="9" class="number">
-	偏		<input id="rangeVal14" value="30" class="number" onkeyup="changeVal14()">
-			<input id="range14" value="30" type="range" min="-90" max="90" onchange="changeRange14()">
+	<button id="bBgn"  onclick="toBgn ()">起</button>
+	<button id="bEnd"  onclick="toEnd ()">迄</button>
+	<button id="bGo"   onclick="toGo  ()">動</button>
+	<button id="bBack" onclick="toBack()">回</button>
+	速 <input id="iSpeed" value="1" class="number">
+	<button id="bAuto" onclick="toAuto()">自動</button>
+	逐增 <input  id="iDelta" value="10" class="number">
+<br>00 腰﹍
+	起 <button id="bDecBgn0" onclick="decVal()">-</button>
+	   <input  id="iValBgn0" value="0" class="number">
+	   <button id="bIncBgn0" onclick="incVal()">+</button>
+	迄 <button id="bDecEnd0" onclick="decVal()">-</button>
+	   <input  id="iValEnd0" value="0" class="number">
+	   <button id="bIncEnd0" onclick="incVal()">+</button>
+<br>01 右裸
+	起 <button id="bDecBgn1" onclick="decVal()">-</button>
+	   <input  id="iValBgn1" value="0" class="number">
+	   <button id="bIncBgn1" onclick="incVal()">+</button>
+	迄 <button id="bDecEnd1" onclick="decVal()">-</button>
+	   <input  id="iValEnd1" value="0" class="number">
+	   <button id="bIncEnd1" onclick="incVal()">+</button>
+<br>02 右腳
+	起 <button id="bDecBgn2" onclick="decVal()">-</button>
+	   <input  id="iValBgn2" value="0" class="number">
+	   <button id="bIncBgn2" onclick="incVal()">+</button>
+	迄 <button id="bDecEnd2" onclick="decVal()">-</button>
+	   <input  id="iValEnd2" value="0" class="number">
+	   <button id="bIncEnd2" onclick="incVal()">+</button>
+<br>03 右腿
+	起 <button id="bDecBgn3" onclick="decVal()">-</button>
+	   <input  id="iValBgn3" value="0" class="number">
+	   <button id="bIncBgn3" onclick="incVal()">+</button>
+	迄 <button id="bDecEnd3" onclick="decVal()">-</button>
+	   <input  id="iValEnd3" value="0" class="number">
+	   <button id="bIncEnd3" onclick="incVal()">+</button>
+<br>04 右跨
+	起 <button id="bDecBgn4" onclick="decVal()">-</button>
+	   <input  id="iValBgn4" value="0" class="number">
+	   <button id="bIncBgn4" onclick="incVal()">+</button>
+	迄 <button id="bDecEnd4" onclick="decVal()">-</button>
+	   <input  id="iValEnd4" value="0" class="number">
+	   <button id="bIncEnd4" onclick="incVal()">+</button>
+<br>05 右肩
+	起 <button id="bDecBgn5" onclick="decVal()">-</button>
+	   <input  id="iValBgn5" value="0" class="number">
+	   <button id="bIncBgn5" onclick="incVal()">+</button>
+	迄 <button id="bDecEnd5" onclick="decVal()">-</button>
+	   <input  id="iValEnd5" value="0" class="number">
+	   <button id="bIncEnd5" onclick="incVal()">+</button>
+<br>06 右膀
+	起 <button id="bDecBgn6" onclick="decVal()">-</button>
+	   <input  id="iValBgn6" value="0" class="number">
+	   <button id="bIncBgn6" onclick="incVal()">+</button>
+	迄 <button id="bDecEnd6" onclick="decVal()">-</button>
+	   <input  id="iValEnd6" value="0" class="number">
+	   <button id="bIncEnd6" onclick="incVal()">+</button>
+<br>07 右臂
+	起 <button id="bDecBgn7" onclick="decVal()">-</button>
+	   <input  id="iValBgn7" value="0" class="number">
+	   <button id="bIncBgn7" onclick="incVal()">+</button>
+	迄 <button id="bDecEnd7" onclick="decVal()">-</button>
+	   <input  id="iValEnd7" value="0" class="number">
+	   <button id="bIncEnd7" onclick="incVal()">+</button>
+<br>08 左裸
+	起 <button id="bDecBgn8" onclick="decVal()">-</button>
+	   <input  id="iValBgn8" value="0" class="number">
+	   <button id="bIncBgn8" onclick="incVal()">+</button>
+	迄 <button id="bDecEnd8" onclick="decVal()">-</button>
+	   <input  id="iValEnd8" value="0" class="number">
+	   <button id="bIncEnd8" onclick="incVal()">+</button>
+<br>09 左腳
+	起 <button id="bDecBgn9" onclick="decVal()">-</button>
+	   <input  id="iValBgn9" value="0" class="number">
+	   <button id="bIncBgn9" onclick="incVal()">+</button>
+	迄 <button id="bDecEnd9" onclick="decVal()">-</button>
+	   <input  id="iValEnd9" value="0" class="number">
+	   <button id="bIncEnd9" onclick="incVal()">+</button>
+<br>10 左腿
+	起 <button id="bDecBgn10" onclick="decVal()">-</button>
+	   <input  id="iValBgn10" value="0" class="number">
+	   <button id="bIncBgn10" onclick="incVal()">+</button>
+	迄 <button id="bDecEnd10" onclick="decVal()">-</button>
+	   <input  id="iValEnd10" value="0" class="number">
+	   <button id="bIncEnd10" onclick="incVal()">+</button>
+<br>11 左跨
+	起 <button id="bDecBgn11" onclick="decVal()">-</button>
+	   <input  id="iValBgn11" value="0" class="number">
+	   <button id="bIncBgn11" onclick="incVal()">+</button>
+	迄 <button id="bDecEnd11" onclick="decVal()">-</button>
+	   <input  id="iValEnd11" value="0" class="number">
+	   <button id="bIncEnd11" onclick="incVal()">+</button>
+<br>12 左肩
+	起 <button id="bDecBgn12" onclick="decVal()">-</button>
+	   <input  id="iValBgn12" value="0" class="number">
+	   <button id="bIncBgn12" onclick="incVal()">+</button>
+	迄 <button id="bDecEnd12" onclick="decVal()">-</button>
+	   <input  id="iValEnd12" value="0" class="number">
+	   <button id="bIncEnd12" onclick="incVal()">+</button>
+<br>13 左膀
+	起 <button id="bDecBgn13" onclick="decVal()">-</button>
+	   <input  id="iValBgn13" value="0" class="number">
+	   <button id="bIncBgn13" onclick="incVal()">+</button>
+	迄 <button id="bDecEnd13" onclick="decVal()">-</button>
+	   <input  id="iValEnd13" value="0" class="number">
+	   <button id="bIncEnd13" onclick="incVal()">+</button>
+<br>14 左臂
+	起 <button id="bDecBgn14" onclick="decVal()">-</button>
+	   <input  id="iValBgn14" value="0" class="number">
+	   <button id="bIncBgn14" onclick="incVal()">+</button>
+	迄 <button id="bDecEnd14" onclick="decVal()">-</button>
+	   <input  id="iValEnd14" value="0" class="number">
+	   <button id="bIncEnd14" onclick="incVal()">+</button>
+<br>15 舞台
+	﹍ <button id="bDecBgn15" onclick="decVal()">-</button>
+	   <input  id="iValBgn15" value="0" class="number">
+	   <button id="bIncBgn15" onclick="incVal()">+</button>
 <script src="glMatrix-0.9.5.js"></script>
 <script src="webgl-utils.js"></script>
 <script src="cube.js"></script>

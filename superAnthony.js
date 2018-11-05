@@ -1,49 +1,56 @@
 function drawAnthony(time){
 	drawBackground();
 	setOrigin([0, 2, -30]);
-	rotate([0,1,0], 90*Math.cos(time*.5)); // 全景微轉
+	rotate([0,1,0], parseInt(iValBgn15.value)); // 轉舞台
+	var vSpeed = parseInt(iSpeed.value);
 	
 	mvMatrixPush(); // 上半身
-		
-	rotate([0,1,0], parseInt(rangeVal0.value)+parseInt(amplitude0.value)*Math.sin(time*parseInt(speed0.value))); /*00*/
+	var vBgn = parseInt(iValBgn0.value), vEnd=parseInt(iValEnd0.value);
+	rotate([0,1,0], vBgn+(vEnd-vBgn)*(1-Math.cos(time*vSpeed))/2); /*00*/
 	cube.draw(.5); // 腰
-	translate([0,2,0]);
+	translate([0,1.6,0]);
 	cube.draw([1.8,1.8,1.2]); // 胸
-	translate([0,2.6,0]);
-	cube.draw(1.2); // 頭
+	translate([0,2.8,0]);
+	cube.draw(.9); // 頭
 	
 	mvMatrixPush(); // 右上肢
 	
-	translate([2.4,-1.2,0]);
-	rotate([1,0,0], parseInt(rangeVal5.value)+parseInt(amplitude5.value)*Math.sin(time*parseInt(speed5.value))); /*05*/
+	translate([2.4,-1.4,0]);
+	var vBgn = parseInt(iValBgn5.value), vEnd=parseInt(iValEnd5.value);
+	rotate([1,0,0], vBgn+(vEnd-vBgn)*(1-Math.cos(time*vSpeed))/2); /*05*/
 	cube.draw(.5); // 右肩
 	
 	translate([1.2,0,0]);
-	rotate([0,0,1], parseInt(rangeVal6.value)+parseInt(amplitude6.value)*Math.sin(time*parseInt(speed6.value))); /*06*/
+	var vBgn = parseInt(iValBgn6.value), vEnd=parseInt(iValEnd6.value);
+	rotate([0,0,1], vBgn+(vEnd-vBgn)*(1-Math.cos(time*vSpeed))/2); /*06*/
 	cube.draw(.5); // 右臂
 	translate([0,-1.4,0]);
 	cube.draw(.7);
 	
 	translate([0,-1.4,0]);
-	rotate([1,0,0], parseInt(rangeVal7.value)+parseInt(amplitude7.value)*Math.sin(time*parseInt(speed7.value))); /*07*/
+	var vBgn = parseInt(iValBgn7.value), vEnd=parseInt(iValEnd7.value);
+	rotate([1,0,0], vBgn+(vEnd-vBgn)*(1-Math.cos(time*vSpeed))/2); /*07*/
 	cube.draw(.5); // 右肘
 	translate([0,-1.4,0]);
 	cube.draw(.7);
 	
 	mvMatrixPop(); // 左上肢
 	
-	translate([-2.4,-1.2,0]);
-	rotate([-1,0,0], parseInt(rangeVal12.value)+parseInt(amplitude12.value)*Math.sin(time*parseInt(speed12.value))); /*12*/
+	translate([-2.4,-1.4,0]);
+	var vBgn = parseInt(iValBgn12.value), vEnd=parseInt(iValEnd12.value);
+	rotate([1,0,0], vBgn+(vEnd-vBgn)*(1-Math.cos(time*vSpeed))/2); /*12*/
 	cube.draw(.5); // 左肩
 	
 	translate([-1.2,0,0]);
-	rotate([0,0,-1], parseInt(rangeVal13.value)+parseInt(amplitude13.value)*Math.sin(time*parseInt(speed13.value))); /*13*/
+	var vBgn = parseInt(iValBgn13.value), vEnd=parseInt(iValEnd13.value);
+	rotate([0,0,1], vBgn+(vEnd-vBgn)*(1-Math.cos(time*vSpeed))/2); /*13*/
 	cube.draw(.5); // 左臂
 	translate([0,-1.4,0]);
 	cube.draw(.7);
 	
 	translate([0,-1.4,0]);
-	rotate([-1,0,0], parseInt(rangeVal14.value)+parseInt(amplitude14.value)*Math.sin(time*parseInt(speed14.value))); /*14*/
+	var vBgn = parseInt(iValBgn14.value), vEnd=parseInt(iValEnd14.value);
+	rotate([1,0,0], vBgn+(vEnd-vBgn)*(1-Math.cos(time*vSpeed))/2); /*14*/
 	cube.draw(.5); // 左肘
 	translate([0,-1.4,0]);
 	cube.draw(.7);
@@ -58,23 +65,27 @@ function drawAnthony(time){
 	mvMatrixPush(); // 右下肢
 	
 	translate([1.7,-.3,0]);
-	rotate([0,0,1], parseInt(rangeVal4.value)+parseInt(amplitude4.value)*Math.sin(time*parseInt(speed4.value))); /*5*/
+	var vBgn = parseInt(iValBgn4.value), vEnd=parseInt(iValEnd4.value);
+	rotate([0,0,1], vBgn+(vEnd-vBgn)*(1-Math.cos(time*vSpeed))/2); /*4*/
 	cube.draw(.5); // 右跨
 	
-	translate([0,-1.2,0]);
-	rotate([1,0,0], parseInt(rangeVal3.value)+parseInt(amplitude3.value)*Math.sin(time*parseInt(speed3.value))); /*06*/
+//	translate([0,-1.2,0]);
+	var vBgn = parseInt(iValBgn3.value), vEnd=parseInt(iValEnd3.value);
+	rotate([1,0,0], vBgn+(vEnd-vBgn)*(1-Math.cos(time*vSpeed))/2); /*03*/
 	cube.draw(.5); // 右腿
 	translate([0,-1.4,0]);
 	cube.draw(.7);
 
 	translate([0,-1.4,0]);
-	rotate([1,0,0], parseInt(rangeVal2.value)+parseInt(amplitude2.value)*Math.sin(time*parseInt(speed2.value))); /*6*/
+	var vBgn = parseInt(iValBgn2.value), vEnd=parseInt(iValEnd2.value);
+	rotate([1,0,0], vBgn+(vEnd-vBgn)*(1-Math.cos(time*vSpeed))/2); /*2*/
 	cube.draw(.5); // 右腳
 	translate([0,-1.4,0]);
 	cube.draw(.7);
 
 	translate([0,-1.4,0]);
-	rotate([0,0,1], parseInt(rangeVal1.value)+parseInt(amplitude1.value)*Math.sin(time*parseInt(speed1.value))); /*6*/
+	var vBgn = parseInt(iValBgn1.value), vEnd=parseInt(iValEnd1.value);
+	rotate([0,0,1], vBgn+(vEnd-vBgn)*(1-Math.cos(time*vSpeed))/2); /*1*/
 	cube.draw(.5); // 右裸
 	translate([0,-.4,0]);
 	cube.draw([1.2,.2,1.2]);
@@ -82,25 +93,43 @@ function drawAnthony(time){
 	mvMatrixPop(); // 左下肢
 	
 	translate([-2.7,-.3,0]);
-	rotate([0,0,-1], parseInt(rangeVal11.value)+parseInt(amplitude11.value)*Math.sin(time*parseInt(speed11.value))); /*7*/
+	var vBgn = parseInt(iValBgn11.value), vEnd=parseInt(iValEnd11.value);
+	rotate([0,0,1], vBgn+(vEnd-vBgn)*(1-Math.cos(time*vSpeed))/2); /*11*/
 	cube.draw(.5); // 左跨
 	
-	translate([0,-1.2,0]);
-	rotate([-1,0,0], parseInt(rangeVal10.value)+parseInt(amplitude10.value)*Math.sin(time*parseInt(speed10.value))); /*06*/
+//	translate([0,-1.2,0]);
+	var vBgn = parseInt(iValBgn10.value), vEnd=parseInt(iValEnd10.value);
+	rotate([1,0,0], vBgn+(vEnd-vBgn)*(1-Math.cos(time*vSpeed))/2); /*10*/
 	cube.draw(.5); // 左腿
 	translate([0,-1.4,0]);
 	cube.draw(.7);
 	
 	translate([0,-1.4,0]);
-	rotate([-1,0,0], parseInt(rangeVal9.value)+parseInt(amplitude9.value)*Math.sin(time*parseInt(speed9.value))); /*8*/
+	var vBgn = parseInt(iValBgn9.value), vEnd=parseInt(iValEnd9.value);
+	rotate([1,0,0], vBgn+(vEnd-vBgn)*(1-Math.cos(time*vSpeed))/2); /*9*/
 	cube.draw(.5); // 左腳
 	translate([0,-1.4,0]);
 	cube.draw(.7);	
 	translate([0,-1.4,0]);
-	rotate([0,0,-1], parseInt(rangeVal8.value)+parseInt(amplitude8.value)*Math.sin(time*parseInt(speed8.value))); /*8*/
+	var vBgn = parseInt(iValBgn8.value), vEnd=parseInt(iValEnd8.value);
+	rotate([0,0,1], vBgn+(vEnd-vBgn)*(1-Math.cos(time*vSpeed))/2); /*8*/
 	cube.draw(.5); // 左裸
 	translate([0,-.4,0]);
 	cube.draw([1.2,.2,1.2]);
+}
+var lastTime = 0;
+var delayTime = 0;
+function drawScene() {
+	var time = new Date().getTime() /1000;
+	delayTime = time - lastTime;
+	if(bAuto.innerHTML != "自動")
+		lastTime = time;
+	time -= delayTime;
+	drawAnthony(time);
+}
+function animate(){
+	requestAnimFrame(animate); // the function requestAnimFrame is in webgl-utils.js
+	drawScene()
 }
 ///////////////// event handlers /////////////////
 function onScriptKeyUp(){
@@ -109,127 +138,29 @@ function onScriptKeyUp(){
 function onEvalClick(){
 	f.eval(input.value);
 }
-function autoRun(){
-	if(bAutoRun.innerHTML == "autoRun") bAutoRun.innerHTML="stopRun";
-	else								bAutoRun.innerHTML="autoRun";
+function toAuto(){
+	if(bAuto.innerHTML == "自動") bAuto.innerHTML = "停止";
+	else						  bAuto.innerHTML = "自動";
 }
-function changeVal0(){
-	if(range0.value != rangeVal0.value) range0.value=rangeVal0.value;
+function changeVal(){
+	var rangeVal = event.path[0], m = rangeVal.id.match(/(\d+)$/);
+	if( m ) document.getElementById('range' + m[0]).value = rangeVal.value;
+}
+function changeRange(){
+	var range = event.path[0], m = range.id.match(/(\d+)$/);
+	if( m ) document.getElementById('rangeVal' + m[0]).value = range.value;
+}
+function incVal(){
+	var incElement = event.path[0], m = incElement.id.match(/((Bgn|End)\d+)$/);
+	if( !m ) return;
+	var valElement = document.getElementById('iVal' + m[0]);
+	valElement.value = parseInt(valElement.value) + parseInt(iDelta.value);
 	drawScene();
 }
-function changeRange0(){
-	if(rangeVal0.value != range0.value) rangeVal0.value = range0.value;
-	drawScene();
-}
-function changeVal1(){
-	if(range1.value != rangeVal1.value) range1.value = rangeVal1.value;
-	drawScene();
-}
-function changeRange1(){
-	if(rangeVal1.value != range1.value) rangeVal1.value = range1.value;
-	drawScene();
-}
-function changeVal2(){
-	if(range2.value != rangeVal2.value) range2.value = rangeVal2.value;
-	drawScene();
-}
-function changeRange2(){
-	if(rangeVal2.value != range2.value) rangeVal2.value = range2.value;
-	drawScene();
-}
-function changeVal3(){
-	if(range3.value != rangeVal3.value) range3.value = rangeVal3.value;
-	drawScene();
-}
-function changeRange3(){
-	if(rangeVal3.value != range3.value) rangeVal3.value = range3.value;
-	drawScene();
-}
-function changeVal4(){
-	if(range4.value != rangeVal4.value) range4.value = rangeVal4.value;
-	drawScene();
-}
-function changeRange4(){
-	if(rangeVal4.value != range4.value) rangeVal4.value = range4.value;
-	drawScene();
-}
-function changeVal5(){
-	if(range5.value != rangeVal5.value) range5.value = rangeVal5.value;
-	drawScene();
-}
-function changeRange5(){
-	if(rangeVal5.value != range5.value) rangeVal5.value = range5.value;
-	drawScene();
-}
-function changeVal6(){
-	if(range6.value != rangeVal6.value) range6.value = rangeVal6.value;
-	drawScene();
-}
-function changeRange6(){
-	if(rangeVal6.value != range6.value) rangeVal6.value = range6.value;
-	drawScene();
-}
-function changeVal7(){
-	if(range7.value != rangeVal7.value) range7.value = rangeVal7.value;
-	drawScene();
-}
-function changeRange7(){
-	if(rangeVal7.value != range7.value) rangeVal7.value = range7.value;
-	drawScene();
-}
-function changeVal8(){
-	if(range8.value != rangeVal8.value) range8.value = rangeVal8.value;
-	drawScene();
-}
-function changeRange8(){
-	if(rangeVal8.value != range8.value) rangeVal8.value = range8.value;
-	drawScene();
-}
-function changeRange9(){
-	if(rangeVal9.value != range9.value) rangeVal9.value = range9.value;
-	drawScene();
-}
-function changeVal9(){
-	if(range9.value != rangeVal9.value) range9.value = rangeVal9.value;
-	drawScene();
-}
-function changeRange10(){
-	if(rangeVal0.value != range0.value) rangeVal0.value = range0.value;
-	drawScene();
-}
-function changeVal0(){
-	if(range0.value != rangeVal0.value) range0.value = rangeVal0.value;
-	drawScene();
-}
-function changeRange11(){
-	if(rangeVal11.value != range11.value) rangeVal11.value = range11.value;
-	drawScene();
-}
-function changeVal11(){
-	if(range11.value != rangeVal11.value) range11.value = rangeVal11.value;
-	drawScene();
-}
-function changeRange12(){
-	if(rangeVal12.value != range12.value) rangeVal12.value = range12.value;
-	drawScene();
-}
-function changeVal12(){
-	if(range12.value != rangeVal12.value) range12.value = rangeVal12.value;
-	drawScene();
-}
-function changeRange13(){
-	if(rangeVal13.value != range13.value) rangeVal13.value = range13.value;
-	drawScene();
-}
-function changeVal13(){
-	if(range13.value != rangeVal13.value) range13.value = rangeVal13.value;
-	drawScene();
-}
-function changeRange14(){
-	if(rangeVal14.value != range14.value) rangeVal14.value = range14.value;
-	drawScene();
-}
-function changeVal14(){
-	if(range14.value != rangeVal14.value) range14.value = rangeVal14.value;
+function decVal(){
+	var incElement = event.path[0], m = incElement.id.match(/((Bgn|End)\d+)$/);
+	if( !m ) return;
+	var valElement = document.getElementById('iVal' + m[0]);
+	valElement.value = parseInt(valElement.value) - parseInt(iDelta.value);
 	drawScene();
 }
