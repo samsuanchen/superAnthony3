@@ -127,11 +127,11 @@ function webGLStart() {
 }
 function save(){
 	var inputs = document.getElementsByClassName("number");
-	var json = {}; inputs.forEach(function(e){json[e.id] = e.value});
-	localStorage.setItem("json", JSON.stringify(json));
+	var json={};for(i=0;i<inputs.length;i++){e=inputs[i];json[e.id]=e.value};
+	localStorage.setItem("anthony_"+iFile.value, JSON.stringify(json));
 }
 function load(){
-	var json = JSON.parse(localStorage.getItem("json"));
+	var json = JSON.parse(localStorage.getItem("anthony_"+iFile.value));
 	Object.keys(json).forEach(function(id){
 		eval(id+'.value='+json[id]);
 	});

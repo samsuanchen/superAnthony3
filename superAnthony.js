@@ -64,7 +64,7 @@ function drawAnthony(time){
 	
 	mvMatrixPush(); // 右下肢
 	
-	translate([1.7,-.3,0]);
+	translate([1.7,0,0]);
 	var vBgn = parseInt(iValBgn4.value), vEnd=parseInt(iValEnd4.value);
 	rotate([0,0,1], vBgn+(vEnd-vBgn)*(1-Math.cos(time*vSpeed))/2); /*4*/
 	cube.draw(.5); // 右跨
@@ -92,7 +92,7 @@ function drawAnthony(time){
 	
 	mvMatrixPop(); // 左下肢
 	
-	translate([-2.7,-.3,0]);
+	translate([-2.7,0,0]);
 	var vBgn = parseInt(iValBgn11.value), vEnd=parseInt(iValEnd11.value);
 	rotate([0,0,1], vBgn+(vEnd-vBgn)*(1-Math.cos(time*vSpeed))/2); /*11*/
 	cube.draw(.5); // 左跨
