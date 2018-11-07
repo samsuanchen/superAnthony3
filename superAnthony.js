@@ -6,7 +6,7 @@ function drawAnthony(time){
 	
 	mvMatrixPush(); // 上半身
 	var vBgn = parseInt(iValBgn0.value), vEnd=parseInt(iValEnd0.value);
-	rotate([0,1,0], vBgn+(vEnd-vBgn)*(1-Math.cos(time*vSpeed))/2); /*00*/
+	rotateY(vBgn+(vEnd-vBgn)*(1-Math.cos(time*vSpeed))/2); /*00*/
 	cube.draw(.5); // 腰
 	translate([0,1.6,0]);
 	cube.draw([1.8,1.8,1.2]); // 胸
@@ -17,19 +17,19 @@ function drawAnthony(time){
 	
 	translate([2.4,-1.4,0]);
 	var vBgn = parseInt(iValBgn5.value), vEnd=parseInt(iValEnd5.value);
-	rotate([1,0,0], vBgn+(vEnd-vBgn)*(1-Math.cos(time*vSpeed))/2); /*05*/
+	rotateX(vBgn+(vEnd-vBgn)*(1-Math.cos(time*vSpeed))/2); /*05*/
 	cube.draw(.5); // 右肩
 	
 	translate([1.2,0,0]);
 	var vBgn = parseInt(iValBgn6.value), vEnd=parseInt(iValEnd6.value);
-	rotate([0,0,1], vBgn+(vEnd-vBgn)*(1-Math.cos(time*vSpeed))/2); /*06*/
+	rotateZ(vBgn+(vEnd-vBgn)*(1-Math.cos(time*vSpeed))/2); /*06*/
 	cube.draw(.5); // 右臂
 	translate([0,-1.4,0]);
 	cube.draw(.7);
 	
 	translate([0,-1.4,0]);
 	var vBgn = parseInt(iValBgn7.value), vEnd=parseInt(iValEnd7.value);
-	rotate([1,0,0], vBgn+(vEnd-vBgn)*(1-Math.cos(time*vSpeed))/2); /*07*/
+	rotateX(vBgn+(vEnd-vBgn)*(1-Math.cos(time*vSpeed))/2); /*07*/
 	cube.draw(.5); // 右肘
 	translate([0,-1.4,0]);
 	cube.draw(.7);
@@ -38,19 +38,19 @@ function drawAnthony(time){
 	
 	translate([-2.4,-1.4,0]);
 	var vBgn = parseInt(iValBgn12.value), vEnd=parseInt(iValEnd12.value);
-	rotate([1,0,0], vBgn+(vEnd-vBgn)*(1-Math.cos(time*vSpeed))/2); /*12*/
+	rotateX(vBgn+(vEnd-vBgn)*(1-Math.cos(time*vSpeed))/2); /*12*/
 	cube.draw(.5); // 左肩
 	
 	translate([-1.2,0,0]);
 	var vBgn = parseInt(iValBgn13.value), vEnd=parseInt(iValEnd13.value);
-	rotate([0,0,1], vBgn+(vEnd-vBgn)*(1-Math.cos(time*vSpeed))/2); /*13*/
+	rotateZ(vBgn+(vEnd-vBgn)*(1-Math.cos(time*vSpeed))/2); /*13*/
 	cube.draw(.5); // 左臂
 	translate([0,-1.4,0]);
 	cube.draw(.7);
 	
 	translate([0,-1.4,0]);
 	var vBgn = parseInt(iValBgn14.value), vEnd=parseInt(iValEnd14.value);
-	rotate([1,0,0], vBgn+(vEnd-vBgn)*(1-Math.cos(time*vSpeed))/2); /*14*/
+	rotateX(vBgn+(vEnd-vBgn)*(1-Math.cos(time*vSpeed))/2); /*14*/
 	cube.draw(.5); // 左肘
 	translate([0,-1.4,0]);
 	cube.draw(.7);
@@ -66,26 +66,26 @@ function drawAnthony(time){
 	
 	translate([1.7,0,0]);
 	var vBgn = parseInt(iValBgn4.value), vEnd=parseInt(iValEnd4.value);
-	rotate([0,0,1], vBgn+(vEnd-vBgn)*(1-Math.cos(time*vSpeed))/2); /*4*/
+	rotateZ(vBgn+(vEnd-vBgn)*(1-Math.cos(time*vSpeed))/2); /*4*/
 	cube.draw(.5); // 右跨
 	
 	translate([0,-.8,0]);
 	var vBgn = parseInt(iValBgn3.value), vEnd=parseInt(iValEnd3.value);
-	rotate([1,0,0], vBgn+(vEnd-vBgn)*(1-Math.cos(time*vSpeed))/2); /*03*/
+	rotateX(vBgn+(vEnd-vBgn)*(1-Math.cos(time*vSpeed))/2); /*03*/
 	cube.draw(.5); // 右腿
 	translate([0,-1.4,0]);
 	cube.draw(.7);
 
 	translate([0,-1.4,0]);
 	var vBgn = parseInt(iValBgn2.value), vEnd=parseInt(iValEnd2.value);
-	rotate([1,0,0], vBgn+(vEnd-vBgn)*(1-Math.cos(time*vSpeed))/2); /*2*/
+	rotateX(vBgn+(vEnd-vBgn)*(1-Math.cos(time*vSpeed))/2); /*2*/
 	cube.draw(.5); // 右腳
 	translate([0,-1.4,0]);
 	cube.draw(.7);
 
 	translate([0,-1.4,0]);
 	var vBgn = parseInt(iValBgn1.value), vEnd=parseInt(iValEnd1.value);
-	rotate([0,0,1], vBgn+(vEnd-vBgn)*(1-Math.cos(time*vSpeed))/2); /*1*/
+	rotateZ(vBgn+(vEnd-vBgn)*(1-Math.cos(time*vSpeed))/2); /*1*/
 	cube.draw(.5); // 右裸
 	translate([0,-.4,0]);
 	cube.draw([1.2,.2,1.2]);
@@ -94,25 +94,25 @@ function drawAnthony(time){
 	
 	translate([-2.7,0,0]);
 	var vBgn = parseInt(iValBgn11.value), vEnd=parseInt(iValEnd11.value);
-	rotate([0,0,1], vBgn+(vEnd-vBgn)*(1-Math.cos(time*vSpeed))/2); /*11*/
+	rotateZ(vBgn+(vEnd-vBgn)*(1-Math.cos(time*vSpeed))/2); /*11*/
 	cube.draw(.5); // 左跨
 	
 	translate([0,-.8,0]);
 	var vBgn = parseInt(iValBgn10.value), vEnd=parseInt(iValEnd10.value);
-	rotate([1,0,0], vBgn+(vEnd-vBgn)*(1-Math.cos(time*vSpeed))/2); /*10*/
+	rotateX(vBgn+(vEnd-vBgn)*(1-Math.cos(time*vSpeed))/2); /*10*/
 	cube.draw(.5); // 左腿
 	translate([0,-1.4,0]);
 	cube.draw(.7);
 	
 	translate([0,-1.4,0]);
 	var vBgn = parseInt(iValBgn9.value), vEnd=parseInt(iValEnd9.value);
-	rotate([1,0,0], vBgn+(vEnd-vBgn)*(1-Math.cos(time*vSpeed))/2); /*9*/
+	rotateX(vBgn+(vEnd-vBgn)*(1-Math.cos(time*vSpeed))/2); /*9*/
 	cube.draw(.5); // 左腳
 	translate([0,-1.4,0]);
 	cube.draw(.7);	
 	translate([0,-1.4,0]);
 	var vBgn = parseInt(iValBgn8.value), vEnd=parseInt(iValEnd8.value);
-	rotate([0,0,1], vBgn+(vEnd-vBgn)*(1-Math.cos(time*vSpeed))/2); /*8*/
+	rotateZ(vBgn+(vEnd-vBgn)*(1-Math.cos(time*vSpeed))/2); /*8*/
 	cube.draw(.5); // 左裸
 	translate([0,-.4,0]);
 	cube.draw([1.2,.2,1.2]);

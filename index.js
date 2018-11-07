@@ -83,17 +83,11 @@ function changeScale(points, s, v){
 	if(typeof(s) == "number"){
 		for(var i=0; i<points.length; i++) v[i]=points[i]*s;
 	} else {
-		for(var i=0; i<points.length; i+=3){
-			v[i]=points[i]*s[0];
-			v[i+1]=points[i+1]*s[1];
-			v[i+2]=points[i+2]*s[2];
-		}
+		for(var i=0; i<points.length; i+=3) v[i]=points[i]*s[0], v[i+1]=points[i+1]*s[1], v[i+2]=points[i+2]*s[2];
 	}
 }
 cube.draw = function (s) {
-	var scale = s || 1;
-	var v=[];
-	changeScale(cube.points, scale, v);
+	var scale = s || 1, v=[];
 	gl.bindBuffer(gl.ARRAY_BUFFER, gl.createBuffer());
 	changeScale(cube.points, scale, v);
 	gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(v), gl.STATIC_DRAW);
@@ -106,18 +100,13 @@ cube.draw = function (s) {
 }
 function setOrigin(pos) { mat4.identity(mvMatrix); mat4.translate(mvMatrix, pos); }
 function translate(pos) { mat4.translate(mvMatrix, pos); }
-function rotate(dir, angle) {
-	mat4.rotate(mvMatrix, angle * Math.PI / 180, dir);
-}
+function rotate(dir, angle) { mat4.rotate(mvMatrix, angle * Math.PI / 180, dir); }
+function rotateX(angle) { mat4.rotateX(mvMatrix, angle * Math.PI / 180); }
+function rotateY(angle) { mat4.rotateY(mvMatrix, angle * Math.PI / 180); }
+function rotateZ(angle) { mat4.rotateZ(mvMatrix, angle * Math.PI / 180); }
 var stack = [];
-function mvMatrixPush(){
-	var copy = mat4.create();
-	mat4.set(mvMatrix, copy);
-	stack.push(copy);
-}
-function mvMatrixPop(){
-	mat4.set(stack.pop(), mvMatrix);
-}
+function mvMatrixPush(){ var copy = mat4.create(); mat4.set(mvMatrix, copy); stack.push(copy); }
+function mvMatrixPop(){ mat4.set(stack.pop(), mvMatrix); }
 function webGLStart() {
 	initGL();
 	initShaders();
@@ -125,13 +114,17 @@ function webGLStart() {
 	drawAnthony(0);
 	animate();
 }
-function save(){
+function save(key){
+	key = key || iFile.value;
 	var inputs = document.getElementsByClassName("number");
 	var json={};for(i=0;i<inputs.length;i++){e=inputs[i];json[e.id]=e.value};
-	localStorage.setItem("anthony_"+iFile.value, JSON.stringify(json));
+	localStorage.setItem("anthony_"+key, JSON.stringify(json));
 }
-function load(){
-	var json = JSON.parse(localStorage.getItem("anthony_"+iFile.value));
+function load(key){
+	if( ! key ) key = iFile.value;
+	else if( iFile.value != key ) iFile.value = key
+	key = key || iFile.value;
+	var json = JSON.parse(localStorage.getItem("anthony_"+key));
 	Object.keys(json).forEach(function(id){
 		eval(id+'.value='+json[id]);
 	});

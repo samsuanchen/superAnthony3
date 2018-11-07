@@ -238,8 +238,8 @@ f.eval = function(tib) { // evaluate given script in tib
 		if( f.errorMessage ) break;
 	}
 }
-f.dict = {	// The word "code" so far is the only word in dictionary.
-			// Many new words defined by "code" in java script via f.eval() later.
+f.dict = {	// So far the word "code" is the only word in dictionary.
+			// New words can be defined by "code" in javascript via f.eval() later.
 	"code": { id: 0, name: 'code', code: function(){ // ( <namw> -- )
 		const w = f.createWord(),
 			t = f.tib.substr(f.ram[f.toIn]),
@@ -321,7 +321,7 @@ f.init(`
  code ! ( value addr -- ) var d = f.dStk; f.ram[d.pop()] = d.pop(); end-code 
  : on ( addr -- ) 1 swap ! ; 
  : off ( addr -- ) 0 swap ! ; 
- code words ( -- ) f.type( Object.keys( f.dict ).map( function( name ) { return f.dict[name].id + " " + name; }).join( " " ) ), f.cr(); end-code 
+ code words ( -- ) f.cr( Object.keys( f.dict ).map( function( name ) { return f.dict[name].id + " " + name; }).join( " " ) ); end-code 
  code ] ( -- ) f.compiling = true; end-code 
  code [ ( -- ) f.compiling = false; end-code 
  code token ( <token> -- str ) f.dStk.push( f.getToken() ); end-code 
@@ -385,8 +385,8 @@ f.init(`
  : t99 ( -- ) 8 for 9 i - t9 next ;
  .( input "t99" should output the following: ) cr t99 
  code word ( delimiter -- str ) f.dStk.push(f.getToken(f.dStk.pop())); end-code
- code 拆板 ( n obj -- n ) f.dStk.pop().indices.length -= f.dStk[f.dStk.length-1]; end-code
- code 裝板 ( n obj -- ) f.dStk.pop().indices.length += f.dStk.pop(); end-code
+ \\ code 拆板 ( n obj -- n ) f.dStk.pop().indices.length -= f.dStk[f.dStk.length-1]; end-code
+ \\ code 裝板 ( n obj -- ) f.dStk.pop().indices.length += f.dStk.pop(); end-code
  .( input "words" should output the following: ) cr 
  words cr 
  code ." ( <str>" -- ) f.compile(f.dict.doStr); f.compile(f.getToken('"')); end-code immediate 

@@ -13,8 +13,19 @@
 	<button onclick="onEvalClick()">eval javaScript or forth</button>
 	<button onclick="save()">寫</button>
 	<button onclick="load()">讀</button>
-	<input id="iFile" size="10" value="大步前進">
-<br><button id="bBgn"  onclick="toBgn ()">起</button>
+	<input id="iFile" size="10" value="站立不動">
+<ul id='myList'>
+</ul>
+	<script>
+		var p = /^anthony_(.+)/;
+		myList.innerHTML = Object.keys(localStorage)
+			.filter( k => k.match(p) )
+			.map( k => (
+				n = k.match(p)[1],
+				'<button onclick="load(&quot;' + n + '&quot;)">' + n + '</a>'
+			) ).join(' ')
+	</script>
+<button id="bBgn"  onclick="toBgn ()">起</button>
 	<button id="bEnd"  onclick="toEnd ()">迄</button>
 	步進 <input  id="iDelta" value="10" class="number">
 	<button id="bAuto" onclick="toAuto()">自動</button>
