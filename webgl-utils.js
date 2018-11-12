@@ -1,4 +1,4 @@
-/*
+/* webgl-utils.js @ https://github.com/samsuanchen/superAnthony3
  * Copyright 2010, Google Inc.
  * All rights reserved.
  *

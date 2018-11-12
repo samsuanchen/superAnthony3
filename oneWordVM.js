@@ -1,3 +1,4 @@
+// OneWordVM.js @ https://github.com/samsuanchen/superAnthony3
 const OneWordVM = function () {
 const f = {}; 				// the virtual machine
 f.dStk = [];				// the data stack

@@ -1,3 +1,4 @@
+// cube.js @ https://github.com/samsuanchen/superAnthony3
 var cube = {
 	points :   [-1, -1,  1, // 前面 左下點 (各面頂點 均 反時鐘順序)
 				 1, -1,  1, //      右下點

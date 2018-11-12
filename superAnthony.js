@@ -1,3 +1,4 @@
+// superAnthony.js @ https://github.com/samsuanchen/superAnthony3
 function drawAnthony(time){
 	drawBackground();
 	setOrigin([0, 2, -30]);

@@ -1,3 +1,4 @@
+// index.js @ https://github.com/samsuanchen/superAnthony3
 var shader_fs = `
     precision mediump float;
     varying vec4 vColor;

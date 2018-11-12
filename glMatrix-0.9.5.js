@@ -1,4 +1,4 @@
-// glMatrix v0.9.5
+// glMatrix v0.9.5 @ https://github.com/samsuanchen/superAnthony3
 glMatrixArrayType = typeof Float32Array != "undefined" ? Float32Array : typeof WebGLFloatArray != "undefined" ? WebGLFloatArray : Array;
 var vec3 = {};
 vec3.create = function(a) {

@@ -1,4 +1,4 @@
-///////////////// event handlers /////////////////
+// eventHandlers.js @ https://github.com/samsuanchen/superAnthony3
 function save(key){
 	key = key || iFile.value;
 	var inputs = document.getElementsByClassName("number");
