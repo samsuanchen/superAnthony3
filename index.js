@@ -114,18 +114,3 @@ function webGLStart() {
 	drawAnthony(0);
 	animate();
 }
-function save(key){
-	key = key || iFile.value;
-	var inputs = document.getElementsByClassName("number");
-	var json={};for(i=0;i<inputs.length;i++){e=inputs[i];json[e.id]=e.value};
-	localStorage.setItem("anthony_"+key, JSON.stringify(json));
-}
-function load(key){
-	if( ! key ) key = iFile.value;
-	else if( iFile.value != key ) iFile.value = key
-	key = key || iFile.value;
-	var json = JSON.parse(localStorage.getItem("anthony_"+key));
-	Object.keys(json).forEach(function(id){
-		eval(id+'.value='+json[id]);
-	});
-}

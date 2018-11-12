@@ -1,3 +1,4 @@
+const OneWordVM = function () {
 const f = {}; 				// the virtual machine
 f.dStk = [];				// the data stack
 f.rStk = [];				// the return stack
@@ -16,16 +17,16 @@ f.print = function( msg ){	// print message
 f.userException = function ( message ) {
    this.message = message;
    this.name = 'userException';
-   f.print(JSON.stringify(message));
+   f.print(JSON.stringify(message,null,2));
 }
 f.error = function ( message ) {
    f.userException( message );
    exit;
 }
 f.panic = function( msg ){	// print message and return f.errorMessage
-	f.errorMessage = { msg: msg,
+	f.errorMessage = { msg: msg,token: f.token, 
 		base: f.ram[f.base], tib: f.tib, toIn: f.ram[f.toIn], last: f.last,
-		token: f.token, word: f.word, compiling: f.compiling, head: f.head,
+		word: f.word, compiling: f.compiling, head: f.head,
 		dStk: f.dStk, rStk: f.rStk
 	}
 	if( f.ram[f.tracing] ) window.alert("??? "+msg+" ???\n"+JSON.stringify(f.errorMessage,null,2));
@@ -63,7 +64,7 @@ f.numberToStack = function(n){// push number to data stack
 }
 f.executeWord = function( w ){// execute a word
 	if( f.ram[f.tracing] ){
-		f.traceInfo( 'execute '+(f.head ? ( ( f.head.ip - 1 ) + ' ' ) : '' ) + 'word ' + w.name, 1 );
+		f.traceInfo( 'execute '+(f.head ? ( ( f.head.ip - 1 ) + ' ' ) : '' ) + ' W'+w.id+' ' + w.name, 1 );
 	}
 	f.word=w, w.code();
 }
@@ -110,19 +111,24 @@ f.compile = function( w ) {	// compile a word into colon word-list
 	f.last.parm.push( w );
 }
 f.createWord = function( code, tag, value ){ // 
+	var m=f.tib.substr(0,f.ram[f.toIn]).match(/(\S+)\s+$/), srcBgn = f.ram[f.toIn]-m[0].length;
 	var name = f.getToken();
 	if( f.ram[f.tracing] ) f.traceInfo( 'create a new word ' + name );
 	if( ! name ) {
 		f.panic("expect a name of new word");
 		return;
 	}
-	var w = f.last = { id: Object.keys( f.dict ).length, name: name }
+	var w = f.dict[name];
+	if( w ) f.print('reDef '+name+' same as W'+w.id);
+	w = f.last = { id: Object.keys( f.dict ).length, name: name };
+	w.srcBgn = srcBgn, w.definedBy = m[1];
 	if( code ) w.code = code;
 	if( tag ) w[tag] = value;
 	return w;
 }
 f.addWord = function(w){	// add a new into the dictionary
 	f.dict[w.name] = w;
+	w.src = f.tib.substring(f.last.srcBgn,f.ram[f.toIn]);
 }
 f.getToken = function( delimiter ) { // get next token from tib
 	delimiter = delimiter || ' ';
@@ -199,8 +205,10 @@ f.isNotANumber = function ( n ) {
 	for ( var i=0; i<n.length; i++ ) if( f.isNotADigit( n.charCodeAt( i ), f.ram[f.base] ) ) return true;
 	return false;
 }
+var inps = [], nInp = 0;
 f.eval = function(tib) { // evaluate given script in tib
-	f.cr();
+	inps.push(tib);
+	f.cr("inp "+(nInp++)+" > `"+tib+"`");
 	f.tib = tib || "", f.ram[f.toIn] = 0, f.rStk=[], f.compiling = f.errorMessage = false;
 	var token;
 	while( f.token = token = f.getToken() ){ var w, n;
@@ -223,7 +231,7 @@ f.eval = function(tib) { // evaluate given script in tib
 				try {
 					eval( code );
 				} catch ( err ) {
-					f.panic( "unDefd "+token );					// alert undefined
+					f.panic( "unDef "+token );					// alert undefined
 					break;
 				}
 			} else if( token.indexOf( '.' )<0 )
@@ -238,15 +246,32 @@ f.eval = function(tib) { // evaluate given script in tib
 		if( f.errorMessage ) break;
 	}
 }
+f.psee = function (w){ // 
+  var src=w.src, definedBy=w.definedBy, n; 
+  if(definedBy=='alias'){ 
+   var L=Object.keys(f.dict).sort( function(a,b){ 
+    return f.dict[a].id-f.dict[b].id; 
+   }).slice(0,w.id); 
+   for(var i=L.length-1; i>=0; i--){ 
+    n=f.dict[L[i]]; 
+    if(n.code==w.code) break; 
+   } 
+   if(i>=0) src="' "+n.name+" "+src; 
+  } else if(definedBy=='constant' || definedBy=='value'){ 
+   src=JSON.stringify(w.parm)+" "+src; 
+  } 
+  if(w.immediate) src+=" immediate"; 
+  if(w.compileOnly) src+=" compile-only"; 
+  f.print('W'+w.id+' '+src);
+}
 f.dict = {	// So far the word "code" is the only word in dictionary.
 			// New words can be defined by "code" in javascript via f.eval() later.
 	"code": { id: 0, name: 'code', code: function(){ // ( <namw> -- )
 		const w = f.createWord(),
 			t = f.tib.substr(f.ram[f.toIn]),
-			m = t.match(/^\s*(\(\s.+?\s\)\s)?(.+?)\send-code/);
+			m = t.match(/^\s*(\(\s.+?\s\)\s)?([^\0]+?)\send-code/);
 		if( ! m ){
 			f.panic( "expect 'end-code'" );
-			return;
 		}
 		f.ram[f.toIn] += m[0].length;
 		var _fun_;
@@ -259,9 +284,11 @@ f.dict = {	// So far the word "code" is the only word in dictionary.
 		}
 	} }
 };
-
+var w=f.dict.code, src=w.code.toString();
+w.src='code '+w.name+src.substr(11,src.length-13)+'end-code';
+w.definedBy = 'code';
 f.init = function( script ){
-	f.print( "the javascript one word vm f 20180715 samsuanchen@gmail.com" );
+	f.print( "javascript oneWordVm f 20181111 samsuanchen@gmail.com" );
 	f.eval( script );
 }
 
@@ -321,18 +348,39 @@ f.init(`
  code ! ( value addr -- ) var d = f.dStk; f.ram[d.pop()] = d.pop(); end-code 
  : on ( addr -- ) 1 swap ! ; 
  : off ( addr -- ) 0 swap ! ; 
- code words ( -- ) f.cr( Object.keys( f.dict ).map( function( name ) { return f.dict[name].id + " " + name; }).join( " " ) ); end-code 
  code ] ( -- ) f.compiling = true; end-code 
  code [ ( -- ) f.compiling = false; end-code 
  code token ( <token> -- str ) f.dStk.push( f.getToken() ); end-code 
- code find ( str -- w ) var d = f.dStk; d.push( f.dict( d.pop() ) ); end-code 
- code ' ( <name> -- w ) f.dStk.push( f.dict[ f.getToken() ] ); end-code 
  code , ( n -- ) f.compileOffset( f.dStk.pop() ); end-code 
  code word, ( w -- ) f.compileWord( f.dStk.pop() ); end-code 
  code compile ( -- ) f.compileWord( f.head.parm[f.head.ip++] ); end-code 
  code literal ( n -- ) f.compileNumber( f.dStk.pop() ); end-code immediate 
  code execute ( w -- ) f.executeWord( f.dStk.pop() ); end-code 
- : trace ( <word> -- ) ' 1 tracing ! execute 0 tracing ! ; 
+ code find ( str -- w ) var d = f.dStk; d.push( f.dict( d.pop() ) ); end-code 
+ code ' ( <name> -- w ) f.dStk.push( f.dict[ f.getToken() ] ); end-code 
+ code words ( -- ) f.cr( Object.keys( f.dict ).sort( function(a,b){ return f.dict[a].id-f.dict[b].id; }).map( function( name ) { return "W" + f.dict[name].id + " " + name; }).join( " " ) ); end-code 
+ code (see) ( w -- ) 
+  var src=w.src, definedBy=w.definedBy, n; 
+  if(definedBy=='alias'){ 
+   var L=Object.keys(f.dict).sort( function(a,b){ 
+    return f.dict[a].id-f.dict[b].id; 
+   }).slice(0,w.id); 
+   for(var i=L.length-1; i>=0; i--){ 
+    n=f.dict[L[i]]; 
+    if(n.code==w.code) break; 
+   } 
+   if(i>=0) src="' "+n.name+" "+src; 
+  } else if(definedBy=='constant' || definedBy=='value'){ 
+   src=JSON.stringify(w.parm)+" "+src; 
+  } 
+  if(w.immediate) src+=" immediate"; 
+  if(w.compileOnly) src+=" compile-only"; 
+  f.print('W'+w.id+' '+src); 
+ end-code 
+ code seeAll ( -- ) Object.keys(f.dict).sort( function(a,b){ return f.dict[a].id-f.dict[b].id; }).forEach(function(name){ f.psee(f.dict[name]) }); end-code 
+ : see ( <name> -- ) ' (see) ; 
+ : (trace) ( w -- ) 1 tracing ! execute 0 tracing ! ; 
+ : trace ( <word> -- ) ' (trace) ; 
  code alias ( w <name> -- ) var w = f.dStk.pop(), n = f.createWord(); n.code = w.code; if( w.parm ) n.parm = w.parm; f.addWord( n ); end-code 
  code > ( a b -- a>b ) f.dStk.push(f.dStk.pop()<f.dStk.pop()); end-code
  code < ( a b -- a<b ) f.dStk.push(f.dStk.pop()>f.dStk.pop()); end-code
@@ -353,9 +401,6 @@ f.init(`
  ' r@ alias i
  code r> f.dStk.push(f.rStk.pop()); end-code
  code >r f.rStk.push(f.dStk.pop()); end-code
- code pick ( ni .. n2 n1 n0 i -- ni .. n2 n1 n0 ni )
-   f.dStk[f.dStk.length-1]=f.dStk[f.dStk.length-f.dStk[f.dStk.length-1]-2]; end-code
- ' doRet alias exit ( -- ) 
  : hex ( -- ) 16 base ! ;  : decimal ( -- ) 10 base ! ; 
  : h. ( number -- ) base @ swap hex . base ! ; 
  : h.r ( number n -- ) base @ -rot hex .r base ! ; 
@@ -366,7 +411,6 @@ f.init(`
  $1234 8 h.0r cr 
  code here ( -- n ) f.dStk.push(f.last.parm.length); end-code 
  code compileTo ( n a -- ) f.last.parm[f.dStk.pop()] = f.dStk.pop(); end-code 
- code i ( -- n ) f.dStk.push( f.rStk[f.rStk.length-1] ); end-code 
  code bl ( -- n ) f.dStk.push( " " ); end-code 
  code quote ( -- n ) f.dStk.push( String.fromCharCode(34) ); end-code 
  : forward, ( a -- ) here over - swap compileTo ; 
@@ -385,10 +429,17 @@ f.init(`
  : t99 ( -- ) 8 for 9 i - t9 next ;
  .( input "t99" should output the following: ) cr t99 
  code word ( delimiter -- str ) f.dStk.push(f.getToken(f.dStk.pop())); end-code
- \\ code 拆板 ( n obj -- n ) f.dStk.pop().indices.length -= f.dStk[f.dStk.length-1]; end-code
- \\ code 裝板 ( n obj -- ) f.dStk.pop().indices.length += f.dStk.pop(); end-code
+ code (to) ( n w -- ) var w=f.dStk.pop(); if(w.definedBy!=='value')f.panic('cannot set value to '+w.name); w.parm=f.dStk.pop(); end-code
+ code (+to) ( n w -- ) var w=f.dStk.pop(); if(w.definedBy!=='value')f.panic('cannot set value to '+w.name); w.parm+=f.dStk.pop(); end-code
+ code compiling ( -- flag ) f.dStk.push(f.compiling); end-code 
+ : [compile] ' , ; immediate 
+ : to ( n <name> -- ) ' compiling if [compile] literal compile (to) else (to) then ; immediate 
+ : +to ( n <name> -- ) ' compiling if [compile] literal compile (+to) else (+to) then ; immediate 
  .( input "words" should output the following: ) cr 
  words cr 
  code ." ( <str>" -- ) f.compile(f.dict.doStr); f.compile(f.getToken('"')); end-code immediate 
  : .s depth if depth 1- for r@ pick . next else ." empty " . then cr ;
 `);
+return f;
+}
+const f = new OneWordVM();

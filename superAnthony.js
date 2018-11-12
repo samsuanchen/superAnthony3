@@ -1,8 +1,10 @@
 function drawAnthony(time){
 	drawBackground();
 	setOrigin([0, 2, -30]);
-	rotate([0,1,0], parseInt(iValBgn15.value)); // 轉舞台
 	var vSpeed = parseInt(iSpeed.value);
+	
+	var vBgn = parseInt(iValBgn15.value), vEnd=parseInt(iValEnd15.value);
+	rotateY(vBgn+(vEnd-vBgn)*(1-Math.cos(time*vSpeed))/2); // 轉舞台
 	
 	mvMatrixPush(); // 上半身
 	var vBgn = parseInt(iValBgn0.value), vEnd=parseInt(iValEnd0.value);
@@ -120,7 +122,7 @@ function drawAnthony(time){
 var lastTime = 0;
 var delayTime = 0;
 function drawScene() {
-	var time = new Date().getTime() /1000;
+	var time = new Date().getTime() / 1000;
 	delayTime = time - lastTime;
 	if(bAuto.innerHTML == "自動"){
 		return;
@@ -132,41 +134,4 @@ function drawScene() {
 function animate(){
 	requestAnimFrame(animate); // the function requestAnimFrame is in webgl-utils.js
 	drawScene()
-}
-///////////////// event handlers /////////////////
-function onScriptKeyUp(){
-	if(event.key == "Enter") onEvalClick();
-}
-function onEvalClick(){
-	f.eval(input.value);
-}
-function toAuto(){
-	if(bAuto.innerHTML == "自動") bAuto.innerHTML = "停止";
-	else						  bAuto.innerHTML = "自動";
-}
-function incVal(){
-	var incElement = event.path[0], m = incElement.id.match(/((Bgn|End)\d+)$/);
-	if( !m ) return;
-	var valElement = document.getElementById('iVal' + m[0]);
-	valElement.value = parseInt(valElement.value) + parseInt(iDelta.value);
-}
-function decVal(){
-	var incElement = event.path[0], m = incElement.id.match(/((Bgn|End)\d+)$/);
-	if( !m ) return;
-	var valElement = document.getElementById('iVal' + m[0]);
-	valElement.value = parseInt(valElement.value) - parseInt(iDelta.value);
-}
-function toChangeVal(){
-	if(bAuto.innerHTML != "自動") return;
-	var curElement = event.path[0], m = curElement.id.match(/(Bgn|End)\d+$/);
-	if( !m ) return;
-	drawAnthony(m[1]=="Bgn"?0:180);
-}
-function toBgn(){
-	bAuto.innerHTML = "自動";
-	drawAnthony(0/parseInt(iSpeed.value));
-}
-function toEnd(){
-	bAuto.innerHTML = "自動";
-	drawAnthony(180/parseInt(iSpeed.value));
 }

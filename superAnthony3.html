@@ -5,30 +5,34 @@
 <style>
  input.number{width:28px}
  input[type="range"]{width:110px}
+ .action{background-color:yellow}
 </style>
 </head>
 <body onload="webGLStart()"><font name="細明體">
 	<canvas id="canvas" width="250" height="250"></canvas><br>
-	<input id="input" size="47" onkeyup="onScriptKeyUp()" hint="forth or javascript"><br>
-	<button onclick="onEvalClick()">eval javaScript or forth</button>
+	<input id="input" size="47" onpaste="onScriptPasted()" onkeyup="onScriptKeyUp()" hint="forth or javascript"><br>
+	<button onclick="onEvalClick()">eval forth or js</button>
 	<button onclick="save()">寫</button>
 	<button onclick="load()">讀</button>
-	<input id="iFile" size="10" value="站立不動">
-<ul id='myList'>
-</ul>
+	<input id="iFile" size="10" value="站立">
+<div id='myList'>
+</div>
 	<script>
+	function preloadAction(){
 		var p = /^anthony_(.+)/;
 		myList.innerHTML = Object.keys(localStorage)
 			.filter( k => k.match(p) )
 			.map( k => (
 				n = k.match(p)[1],
-				'<button onclick="load(&quot;' + n + '&quot;)">' + n + '</a>'
+				'<button onclick="load(&quot;' + n + '&quot;)" class="action">' + n + '</a>'
 			) ).join(' ')
+	}
+	preloadAction();
 	</script>
 <button id="bBgn"  onclick="toBgn ()">起</button>
 	<button id="bEnd"  onclick="toEnd ()">迄</button>
 	步進 <input  id="iDelta" value="10" class="number">
-	<button id="bAuto" onclick="toAuto()">自動</button>
+	<button id="bAuto" onclick="toAuto()">暫停</button>
 	速度 <input id="iSpeed" value="1" class="number">
 <table><tr><td>00Y</td><td>腰﹍
 	起 <button id="bDecBgn0" onclick="decVal()">-</button>
@@ -136,14 +140,18 @@
 	   <input  id="iValEnd14" value="0" class="number" onchange="toChangeVal()">
 	   <button id="bIncEnd14" onclick="incVal()">+</button>
 </td></tr><td>15Y</td><td>舞台
-	﹍ <button id="bDecBgn15" onclick="decVal()">-</button>
+	起 <button id="bDecBgn15" onclick="decVal()">-</button>
 	   <input  id="iValBgn15" value="0" class="number" onchange="toChangeVal()">
 	   <button id="bIncBgn15" onclick="incVal()">+</button></font>
+	迄 <button id="bDecEnd15" onclick="decVal()">-</button>
+	   <input  id="iValEnd15" value="0" class="number" onchange="toChangeVal()">
+	   <button id="bIncEnd15" onclick="incVal()">+</button>
 </td></tr></table>
 <script src="glMatrix-0.9.5.js"></script>
 <script src="webgl-utils.js"></script>
 <script src="cube.js"></script>
 <script src="superAnthony.js"></script>
+<script src="eventHandlers.js"></script>
 <script src="oneWordVM.js">// having the one word vm f </script>
 <script src="index.js"></script>
 </html>
