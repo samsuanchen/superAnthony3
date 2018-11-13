@@ -361,7 +361,7 @@ f.init(`
  code ' ( <name> -- w ) f.dStk.push( f.dict[ f.getToken() ] ); end-code 
  code words ( -- ) f.cr( Object.keys( f.dict ).sort( function(a,b){ return f.dict[a].id-f.dict[b].id; }).map( function( name ) { return "W" + f.dict[name].id + " " + name; }).join( " " ) ); end-code 
  code (see) ( w -- ) 
-  var src=w.src, definedBy=w.definedBy, n; 
+  var w=f.dStk.pop(), src=w.src, definedBy=w.definedBy, n; 
   if(definedBy=='alias'){ 
    var L=Object.keys(f.dict).sort( function(a,b){ 
     return f.dict[a].id-f.dict[b].id; 
@@ -436,10 +436,10 @@ f.init(`
  : [compile] ' , ; immediate 
  : to ( n <name> -- ) ' compiling if [compile] literal compile (to) else (to) then ; immediate 
  : +to ( n <name> -- ) ' compiling if [compile] literal compile (+to) else (+to) then ; immediate 
- .( input "words" should output the following: ) cr 
- words cr 
  code ." ( <str>" -- ) f.compile(f.dict.doStr); f.compile(f.getToken('"')); end-code immediate 
  : .s depth if depth 1- for r@ pick . next else ." empty " . then cr ;
+ .( input "words" should output the following: ) cr 
+ words cr 
 `);
 return f;
 }

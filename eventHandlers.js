@@ -1,4 +1,18 @@
 // eventHandlers.js @ https://github.com/samsuanchen/superAnthony3
+function backup(){ // in js console, paste the output to inport more actions
+	actionButtons=document.getElementsByClassName('action');
+	out=['in js console, paste the following to inport more actions'];
+	for(i=0;i<actionButtons.length;i++){
+		key="anthony_"+actionButtons[i].innerHTML.trim();
+		out.push('localStorage.setItem("'+key+'",'
+					+JSON.stringify(localStorage.getItem(key))
+					 .replace(/^"|"$/g,"'")
+					 .replace(/\\"/g,'"')
+					 .replace(/"([0-9-]+)"/g,'$1')
+					+")");
+	}
+	console.log(out.join('\n'));
+}
 function save(key){
 	key = key || iFile.value;
 	var inputs = document.getElementsByClassName("number");
