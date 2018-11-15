@@ -25,10 +25,10 @@ f.error = function ( message ) {
    exit;
 }
 f.panic = function( msg ){	// print message and return f.errorMessage
-	f.errorMessage = { msg: msg,token: f.token, 
-		base: f.ram[f.base], tib: f.tib, toIn: f.ram[f.toIn], last: f.last,
+	f.errorMessage = { msg: msg, token: f.token, 
+		base: f.ram[f.base], last: f.last,
 		word: f.word, compiling: f.compiling, head: f.head,
-		dStk: f.dStk, rStk: f.rStk
+		dStk: f.dStk, rStk: f.rStk, toIn: f.ram[f.toIn], tib: f.tib
 	}
 	if( f.ram[f.tracing] ) window.alert("??? "+msg+" ???\n"+JSON.stringify(f.errorMessage,null,2));
 	f.error(f.errorMessage);
@@ -129,7 +129,9 @@ f.createWord = function( code, tag, value ){ //
 }
 f.addWord = function(w){	// add a new into the dictionary
 	f.dict[w.name] = w;
-	w.src = f.tib.substring(f.last.srcBgn,f.ram[f.toIn]);
+	w.src = f.tib.substring(f.last.srcBgn,f.ram[f.toIn]).trim();
+	w.srcEnd = f.last.srcBgn + w.src.length;
+	w.iInp = f.nInp - 1;
 }
 f.getToken = function( delimiter ) { // get next token from tib
 	delimiter = delimiter || ' ';
@@ -206,10 +208,10 @@ f.isNotANumber = function ( n ) {
 	for ( var i=0; i<n.length; i++ ) if( f.isNotADigit( n.charCodeAt( i ), f.ram[f.base] ) ) return true;
 	return false;
 }
-var inps = [], nInp = 0;
+f.inps = [], f.nInp = 0;
 f.eval = function(tib) { // evaluate given script in tib
-	inps.push(tib);
-	f.cr("inp "+(nInp++)+" > `"+tib+"`");
+	f.inps.push(tib);
+	f.cr("inp "+(f.nInp++)+" > `"+tib+"`");
 	f.tib = tib || "", f.ram[f.toIn] = 0, f.rStk=[], f.compiling = f.errorMessage = false;
 	var token;
 	while( f.token = token = f.getToken() ){ var w, n;
@@ -427,7 +429,7 @@ f.init(`
  : while ( a -- a b ) compile doWhile here 0 , ; immediate 
  : repeat ( a b -- ) compile doRepeat swap backward, forward, ; immediate 
  : t9 ( n -- ) 8 for dup 9 i - * 3 .r next drop cr ; 
- : t99 ( -- ) 8 for 9 i - t9 next ;
+ : t99 ( -- ) 1 begin dup 10 < while dup t9 1+ repeat drop ; 
  .( input "t99" should output the following: ) cr t99 
  code word ( delimiter -- str ) f.dStk.push(f.getToken(f.dStk.pop())); end-code
  code (to) ( n w -- ) var w=f.dStk.pop(); if(w.definedBy!=='value')f.panic('cannot set value to '+w.name); w.parm=f.dStk.pop(); end-code
