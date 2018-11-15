@@ -8,11 +8,11 @@ I am trying to draw a 3D robot so called Super Anthony animated via webGL progra
 
 ## animate 3D objects via webGL GPU shader programs, in index.js
 
-## rotate angles of 16 motors to move body and scene in superAnthony.js 
+## rotate angles of 16 motors to move the robot and the scene in superAnthony.js 
 
-## handle UI controls via event driven handlers, in eventHandlers.js
+## handle UI controls via event handlers, in eventHandlers.js
 
-## calculate 3D motion via matrices operation, in glMatrix-0.9.5.js
+## calculate 3D motion via matrix operation, in glMatrix-0.9.5.js
 
 ## repeat animation frames via the function called in webgl-utils.js
 
